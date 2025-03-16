@@ -1,0 +1,4 @@
+.bg-custom-img {
+    background-image: url('/images/login_bg.webp');
+    background-size: cover;
+}

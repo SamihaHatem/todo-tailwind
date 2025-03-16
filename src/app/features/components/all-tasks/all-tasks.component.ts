@@ -1,11 +1,10 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { taskI } from '../../../shared/interfaces/task.interface';
-import { BeService } from '../../../core/services/be/be.service';
-import { LocalService } from '../../../core/services/local/local.service';
 import { environment } from '../../../../environment/enviroment';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { TaskService } from '../../../core/services/task/task.service';
 
 @Component({
   selector: 'app-all-tasks',
@@ -21,15 +20,10 @@ export class AllTasksComponent implements OnInit {
   isLoading: boolean = true
   isError: boolean = true
   filterValue: any
-  tasksServices: BeService | LocalService
+  tasksServices = inject(TaskService)
 
   constructor() {
-    if (environment.isConnectedToBE) {
-      this.tasksServices = inject(BeService);
-    }
-    else {
-      this.tasksServices = inject(LocalService);
-    }
+
   }
 
   applyFilter() {

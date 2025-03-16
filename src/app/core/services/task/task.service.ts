@@ -1,12 +1,12 @@
+import { isPlatformBrowser } from '@angular/common';
 import { inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { taskI } from '../../../shared/interfaces/task.interface';
-import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
 })
-export class LocalService {
+export class TaskService {
 
   platformId = inject(PLATFORM_ID)
   constructor() { }
@@ -38,7 +38,7 @@ export class LocalService {
     return of({ message: 'success' })
   }
 
-  EditTask(reqBody: taskI) {
+  EditTask(reqBody: taskI):Observable<any> {
     let tasksList: taskI[] = [{ title: 'title', userId: 1, completed: true, id: 0 }]
 
     if (isPlatformBrowser(this.platformId)) {

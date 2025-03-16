@@ -1,11 +1,10 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, Inject, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
 import { taskI } from '../../../shared/interfaces/task.interface';
 import { environment } from '../../../../environment/enviroment';
-import { BeService } from '../../../core/services/be/be.service';
-import { LocalService } from '../../../core/services/local/local.service';
 import Swal from 'sweetalert2'
+import { TaskService } from '../../../core/services/task/task.service';
 
 
 @Component({
@@ -18,17 +17,11 @@ import Swal from 'sweetalert2'
 export class NewTaskComponent implements OnInit {
 
   private formBuilder = inject(FormBuilder);
-  tasksServices: BeService | LocalService
+  tasksServices = inject(TaskService)
   taskId: any
   isFormInvalid: boolean = false;
 
   constructor(private route: ActivatedRoute) {
-    if (environment.isConnectedToBE) {
-      this.tasksServices = inject(BeService);
-    }
-    else {
-      this.tasksServices = inject(LocalService);
-    }
   }
 
   TaskForm: FormGroup = this.formBuilder.group({
